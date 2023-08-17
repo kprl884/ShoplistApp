@@ -4,6 +4,7 @@ import com.example.shoplistapp.data.local.db.ShoppingDatabase
 import com.example.shoplistapp.data.local.repository.ShoppingDataSource
 import com.example.shoplistapp.data.network.service.datasource.ShopListDataSource
 import com.example.shoplistapp.data.network.service.repository.ProductService
+import com.example.shoplistapp.data.utils.Constant.BASE_URL
 import com.example.shoplistapp.domain.repository.local.ShoppingLocalRepository
 import com.example.shoplistapp.domain.repository.remote.ShoppingRemoteRepository
 import dagger.Module
@@ -20,7 +21,7 @@ object NetworkModule {
     fun provideAnalyticsService(
     ): ProductService {
         return Retrofit.Builder()
-            .baseUrl("https://fakestoreapi.com/")
+            .baseUrl(BASE_URL)
             .build()
             .create(ProductService::class.java)
     }

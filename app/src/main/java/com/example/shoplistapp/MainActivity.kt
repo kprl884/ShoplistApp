@@ -27,6 +27,7 @@ class MainActivity : ComponentActivity() {
                     NavHost(navController = navController, startDestination = "product") {
                         composable("shopping") { ShoppingItemScreen() }
                         composable("product") { ProductScreen() }
+
                     }
                 }
             }
