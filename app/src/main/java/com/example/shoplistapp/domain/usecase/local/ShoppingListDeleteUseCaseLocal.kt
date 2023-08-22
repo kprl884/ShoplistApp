@@ -5,8 +5,7 @@ import com.example.shoplistapp.domain.repository.local.ShoppingLocalRepository
 
 class ShoppingListDeleteUseCaseLocal(private val shoppingLocalRepository: ShoppingLocalRepository) {
     suspend operator fun invoke(
-        item: ShoppingItem,
-        onResult: suspend () -> Unit
+        item: ShoppingItem
     ) {
         return shoppingLocalRepository.delete(item)
     }

@@ -5,8 +5,7 @@ import com.example.shoplistapp.domain.repository.local.ShoppingLocalRepository
 
 class ShoppingListInsertUseCaseLocal(private val shoppingLocalRepository: ShoppingLocalRepository) {
     suspend operator fun invoke(
-        item: ShoppingItem,
-        onResult: suspend() -> Unit
+        item: ShoppingItem
     ){
         return shoppingLocalRepository.upsert(item = item)
     }

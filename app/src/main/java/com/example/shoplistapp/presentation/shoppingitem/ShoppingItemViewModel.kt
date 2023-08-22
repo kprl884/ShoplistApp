@@ -1,14 +1,18 @@
 package com.example.shoplistapp.presentation.shoppingitem
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.shoplistapp.domain.entity.ProductItem
 import com.example.shoplistapp.domain.entity.ShoppingItem
 import com.example.shoplistapp.domain.usecase.local.ShoppingListDeleteUseCaseLocal
 import com.example.shoplistapp.domain.usecase.local.ShoppingListGetLocalUseCase
 import com.example.shoplistapp.domain.usecase.local.ShoppingListInsertUseCaseLocal
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class ShoppingItemViewModel(
@@ -16,19 +20,38 @@ class ShoppingItemViewModel(
     private val shoppingListGetLocalUseCase: ShoppingListGetLocalUseCase,
     private val deleteUseCaseLocal: ShoppingListDeleteUseCaseLocal
 ) : ViewModel() {
-    val getItems: Flow<List<ShoppingItem>> = flow {
-        while (true) {
-            val latestNews = shoppingListGetLocalUseCase.invoke {
-                emit(it) // Emits the result of the request to the flow
+    private val _uiState = MutableStateFlow(ShoppingScreenUiState())
+    val uiState: StateFlow<ShoppingScreenUiState> = _uiState.asStateFlow()
+
+    fun insert(item: ShoppingItem) = CoroutineScope(Dispatchers.Main).launch {
+        shoppingListInsertUseCaseLocal.invoke(item)
+    }
+
+    fun delete(item: ShoppingItem) = CoroutineScope(Dispatchers.Main).launch {
+        deleteUseCaseLocal.invoke(item)
+    }
+
+    fun getList(){
+        _uiState.update { currentState->
+            currentState.copy(
+                isShoppingListLoading = true
+            )
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            shoppingListGetLocalUseCase.invoke {dataList ->
+                _uiState.update { currentState->
+                    currentState.copy(
+                        isShoppingListLoading = false,
+                        shoppingList = dataList
+                    )
+                }
             }
         }
     }
 
-    fun insert(item: ShoppingItem) = CoroutineScope(Dispatchers.Main).launch {
-        shoppingListInsertUseCaseLocal.invoke(item) {}
-    }
-
-    fun delete(item: ShoppingItem) = CoroutineScope(Dispatchers.Main).launch {
-        deleteUseCaseLocal.invoke(item) {}
-    }
 }
+
+data class ShoppingScreenUiState(
+    val isShoppingListLoading: Boolean = false,
+    val shoppingList: List<ShoppingItem?> = listOf()
+)

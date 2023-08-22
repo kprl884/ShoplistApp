@@ -1,9 +1,9 @@
 package com.example.shoplistapp.domain.di
 
 import com.example.shoplistapp.domain.repository.local.ShoppingLocalRepository
-import com.example.shoplistapp.domain.repository.remote.ShoppingRemoteRepository
+import com.example.shoplistapp.domain.repository.remote.ProductRemoteRepository
 import com.example.shoplistapp.domain.usecase.local.ShoppingListGetLocalUseCase
-import com.example.shoplistapp.domain.usecase.remote.ShoppingListGetUseCaseRemote
+import com.example.shoplistapp.domain.usecase.remote.ProductListGetUseCaseRemote
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,10 +27,10 @@ object DomainModule {
     @Provides
     @Singleton
     fun provideGetShoppingListRemoteUseCase(
-        shoppingRemoteRepository: ShoppingRemoteRepository
-    ): ShoppingListGetUseCaseRemote {
-        return ShoppingListGetUseCaseRemote(
-            shoppingRemoteRepository
+        productRemoteRepository: ProductRemoteRepository
+    ): ProductListGetUseCaseRemote {
+        return ProductListGetUseCaseRemote(
+            productRemoteRepository
         )
     }
 }

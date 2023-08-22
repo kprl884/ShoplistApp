@@ -6,12 +6,13 @@ import com.example.shoplistapp.data.network.service.datasource.ShopListDataSourc
 import com.example.shoplistapp.data.network.service.repository.ProductService
 import com.example.shoplistapp.data.utils.Constant.BASE_URL
 import com.example.shoplistapp.domain.repository.local.ShoppingLocalRepository
-import com.example.shoplistapp.domain.repository.remote.ShoppingRemoteRepository
+import com.example.shoplistapp.domain.repository.remote.ProductRemoteRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -22,6 +23,7 @@ object NetworkModule {
     ): ProductService {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ProductService::class.java)
     }
@@ -30,7 +32,7 @@ object NetworkModule {
     @Singleton
     fun provideShopListDataSource(
         service: ProductService
-    ): ShoppingRemoteRepository {
+    ): ProductRemoteRepository {
         return ShopListDataSource(
             service
         )

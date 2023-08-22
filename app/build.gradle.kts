@@ -51,6 +51,9 @@ android {
 }
 
 dependencies {
+    val nav_version = "2.7.0"
+    val room_version = "2.5.2"
+
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation("androidx.activity:activity-compose:1.7.2")
@@ -66,20 +69,21 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
-
-    val room_version = "2.5.2"
-
+    //coroutines
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2")
+    //room
     implementation ("androidx.room:room-runtime:$room_version")
     annotationProcessor ("androidx.room:room-compiler:$room_version")
-    implementation ("com.google.dagger:hilt-android:2.44")
-    kapt ("com.google.dagger:hilt-compiler:2.44")
-
+    //hilt
+    implementation ("com.google.dagger:hilt-android:2.46.1")
+    kapt ("com.google.dagger:hilt-compiler:2.46.1")
+    //retrofit gson
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.google.code.gson:gson:2.10.1")
-
-    val nav_version = "2.7.0"
-
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    //navigation
     implementation ("androidx.navigation:navigation-compose:$nav_version")
+    //glide
+    implementation ("com.github.bumptech.glide:glide:4.15.1")
+
 }
