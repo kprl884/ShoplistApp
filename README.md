@@ -34,10 +34,15 @@ Build and run the app on an emulator or physical device.
 The app is structured with the following packages:
 
 data: Contains data-related classes, including data models, Room database setup, and data source implementations.
+
 di: Holds classes related to dependency injection setup using Hilt.
+
 ui: Contains the Jetpack Compose UI components and screens.
+
 viewmodel: Houses the ViewModel classes responsible for managing UI-related data and interactions.
+
 Feel free to explore and modify these packages to understand how different components of the app interact.
+
 
 # Contributing
 
