@@ -85,4 +85,5 @@ dependencies {
     implementation ("androidx.navigation:navigation-compose:$nav_version")
     //glide
     implementation ("com.github.bumptech.glide:glide:4.15.1")
+    implementation ("com.github.bumptech.glide:compose:1.0.0-alpha.5")
 }

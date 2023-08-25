@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.shoplistapp.components.productitem.ShoppingItemCard
 import com.example.shoplistapp.domain.entity.ProductItem
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -28,8 +29,8 @@ fun ProductScreen(
             }
         }
         uiState.productList?.let {
-            items(it){
-                Text(text = "asd")
+            items(it){productItem->
+                ShoppingItemCard(productItem, {}, {})
             }
         }
     }
