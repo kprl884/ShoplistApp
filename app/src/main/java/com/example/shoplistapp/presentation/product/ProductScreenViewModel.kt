@@ -1,5 +1,5 @@
 package com.example.shoplistapp.presentation.product
-
+/*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.shoplistapp.domain.entity.ProductItem
@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+
 
 class ProductScreenViewModel(
     private val productListGetUseCaseRemote: ProductListGetUseCaseRemote
@@ -29,8 +30,11 @@ class ProductScreenViewModel(
         }
     }
 }
-
+*/
+/*
 data class ProductScreenUiState(
     val isProductListLoading: Boolean = false,
     val productList: List<ProductItem?> = listOf()
 )
+
+ */

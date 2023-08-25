@@ -7,6 +7,7 @@ import com.example.shoplistapp.domain.entity.ShoppingItem
 import com.example.shoplistapp.domain.usecase.local.ShoppingListDeleteUseCaseLocal
 import com.example.shoplistapp.domain.usecase.local.ShoppingListGetLocalUseCase
 import com.example.shoplistapp.domain.usecase.local.ShoppingListInsertUseCaseLocal
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +15,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-
 class ShoppingItemViewModel(
     private val shoppingListInsertUseCaseLocal: ShoppingListInsertUseCaseLocal,
     private val shoppingListGetLocalUseCase: ShoppingListGetLocalUseCase,
@@ -24,7 +24,12 @@ class ShoppingItemViewModel(
     val uiState: StateFlow<ShoppingScreenUiState> = _uiState.asStateFlow()
 
     fun insert(item: ShoppingItem) = CoroutineScope(Dispatchers.Main).launch {
-        shoppingListInsertUseCaseLocal.invoke(item)
+        shoppingListInsertUseCaseLocal.invoke(item) {
+            _uiState.update { currentState->
+                currentState.copy(
+                )
+            }
+        }
     }
 
     fun delete(item: ShoppingItem) = CoroutineScope(Dispatchers.Main).launch {
@@ -48,7 +53,6 @@ class ShoppingItemViewModel(
             }
         }
     }
-
 }
 
 data class ShoppingScreenUiState(
