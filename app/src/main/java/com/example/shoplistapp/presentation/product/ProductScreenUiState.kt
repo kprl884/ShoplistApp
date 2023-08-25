@@ -4,5 +4,5 @@ import com.example.shoplistapp.domain.entity.ProductItem
 
 data class ProductScreenUiState(
     val isProductListLoading: Boolean = false,
-    val productList: List<ProductItem?> = listOf()
+    val productList: List<ProductItem>? = null
 )
