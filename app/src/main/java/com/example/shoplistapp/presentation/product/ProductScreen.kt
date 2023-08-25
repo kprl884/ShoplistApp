@@ -6,35 +6,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.shoplistapp.components.productitem.ProductItem
-import com.example.shoplistapp.domain.entity.ProductItem
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 @Composable
-fun ProductScreen() {
-    val itemList = arrayListOf(
-        ProductItem(
-            0, "Nike Air",
-            2500f, "Ayakkabı", "Spor ayakkabı", ""
-        ),
-        ProductItem(
-            1, "Mont", 5000f, "Mont", "Kışlık mont",
-            ""
-        ),
-        ProductItem(
-            2, "Güneş Gözlüğü", 1500f, "Gözlük", "Güneş Gözlüğü",
-            ""
-        ),
-        ProductItem(
-            3, "Şapka", 500f, "Şapka", "Şapka",
-            ""
-        )
-
-    )
+fun ProductScreen(
+    uiStateFlow: StateFlow<ProductScreenUiState>
+) {
     LazyColumn() {
         item {
             Text(text = "Ürünlerim")
         }
-        items(itemList) {
-            ProductItem(productItem = it)
+        items(uiStateFlow.value.productList) {
+            if (it != null) {
+                ProductItem(productItem = it)
+            }
         }
     }
 }
@@ -42,5 +28,9 @@ fun ProductScreen() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewProductScreen() {
-    ProductScreen()
+    ProductScreen(
+        uiStateFlow = MutableStateFlow(
+            ProductScreenUiState()
+        )
+    )
 }

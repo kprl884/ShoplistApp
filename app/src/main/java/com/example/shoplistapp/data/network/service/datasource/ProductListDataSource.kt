@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-class ShopListDataSource(private val productService: ProductService) : ProductRemoteRepository {
+class ProductListDataSource(private val productService: ProductService) : ProductRemoteRepository {
     override suspend fun getProducts(): Flow<List<ProductItem>> {
         return flow {
             try {

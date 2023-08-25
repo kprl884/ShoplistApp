@@ -5,6 +5,5 @@ import retrofit2.http.GET
 
 interface ProductService {
     @GET("/products")
-    fun getProducts(): List<ProductItem>
-
+    suspend fun getProducts(): List<ProductItem>
 }
