@@ -13,11 +13,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProductScreenViewModel @Inject constructor(
+class HomeScreenViewModel @Inject constructor(
     private val productListGetUseCaseRemote: ProductListGetUseCaseRemote
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(ProductScreenUiState())
-    val uiState: StateFlow<ProductScreenUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(HomeScreenUiState())
+    val uiState: StateFlow<HomeScreenUiState> = _uiState.asStateFlow()
 
     init {
         getProduct()

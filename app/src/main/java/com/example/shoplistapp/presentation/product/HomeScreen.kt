@@ -15,8 +15,8 @@ import kotlinx.coroutines.flow.StateFlow
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun ProductScreen(
-    uiStateFlow: StateFlow<ProductScreenUiState>
+fun HomeScreen(
+    uiStateFlow: StateFlow<HomeScreenUiState>
 ) {
     val uiState by uiStateFlow.collectAsState()
    
@@ -39,11 +39,11 @@ fun ProductScreen(
 @Preview(showBackground = true)
 @Composable
 fun PreviewProductScreen() {
-    ProductScreen(
+    HomeScreen(
         uiStateFlow = MutableStateFlow(
-            ProductScreenUiState(
+            HomeScreenUiState(
                 false,
-                listOf<ProductItem>
+                listOf
                     (
                     ProductItem(1, "title", 1f, "ayakkabı", "sad", "sad"),
                     ProductItem(1, "title", 1f, "ayakkabı", "sad", "sad"),
