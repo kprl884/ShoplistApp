@@ -1,12 +1,12 @@
 package com.example.shoplistapp.domain.usecase.local
 
-import com.example.shoplistapp.domain.entity.ShoppingItem
+import com.example.shoplistapp.domain.entity.ProductItem
 import com.example.shoplistapp.domain.repository.local.ShoppingLocalRepository
 import kotlinx.coroutines.flow.catch
 
-class ShoppingListGetLocalUseCase(private val shoppingLocalRepository: ShoppingLocalRepository) {
+class BasketListGetLocalUseCase(private val shoppingLocalRepository: ShoppingLocalRepository) {
     suspend operator fun invoke(
-        onResult: suspend (List<ShoppingItem>) -> Unit
+        onResult: suspend (List<ProductItem>) -> Unit
     ){
         return shoppingLocalRepository.getAllShoppingItems()
             .catch {

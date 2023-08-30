@@ -1,4 +1,4 @@
-package com.example.shoplistapp.presentation.shoppingitem
+package com.example.shoplistapp.presentation.basket
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -12,38 +12,42 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.shoplistapp.domain.entity.ShoppingItem
 import com.example.shoplistapp.ui.theme.ShoplistAppTheme
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 @Composable
-fun ShoppingItemScreen(
-    uiStateFlow: StateFlow<ShoppingScreenUiState>,
-    onEvent: (ShoppingUiEvent) -> Unit
+fun BasketScreen(
+    uiStateFlow: StateFlow<BasketScreenUiState>,
+    onEvent: (BasketUiEvent) -> Unit
 ) {
     var item by remember {
         mutableIntStateOf(0)
     }
+    val localList = MutableStateFlow(BasketScreenUiState())
+    //val localList: StateFlow<ShoppingScreenUiState> = _localList.asStateFlow()
 
     Column {
         Text(text = "Add", modifier = Modifier
             .clickable {
                 item += 1
-                onEvent(
-                    ShoppingUiEvent.OnInsertItem(
-                        ShoppingItem("bir", 12)
-                    )
-                )
+
             }
         )
-        Text(text = "Delete")
-        Text(text = "Get List")
+        Text(text = "Delete", modifier = Modifier
+            .clickable {
+                item -= 1
+
+            })
+        Text(text = "Get List", modifier = Modifier
+            .clickable {
+                localList.value.basketList = uiStateFlow.value.basketList
+            })
 
         LazyColumn {
-            items(uiStateFlow.value.shoppingList) {
+            items(localList.value.basketList) {
                 if (it != null) {
-                    Text(text = it.name)
+                    Text(text = it.title)
                 }
             }
         }
@@ -54,9 +58,9 @@ fun ShoppingItemScreen(
 @Composable
 fun PreviewShoppingItemScreen() {
     ShoplistAppTheme {
-        ShoppingItemScreen(
+        BasketScreen(
             uiStateFlow = MutableStateFlow(
-                ShoppingScreenUiState()
+                BasketScreenUiState()
             ),
             onEvent = {}
         )

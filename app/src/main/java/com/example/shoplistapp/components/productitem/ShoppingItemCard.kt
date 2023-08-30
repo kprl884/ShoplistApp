@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -29,7 +30,8 @@ import com.example.shoplistapp.domain.entity.ProductItem
 @Composable
 fun ShoppingItemCard(
     shoppingItem: ProductItem,
-    onBuyClick: () -> Unit,
+    onAddClick: () -> Unit,
+    onSubtract: () -> Unit,
     onSaveClick: () -> Unit
 ) {
     Card(
@@ -72,17 +74,25 @@ fun ShoppingItemCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Button(
-                    onClick = onBuyClick,
+                    onClick = onAddClick,
                     modifier = Modifier
-                        .fillMaxWidth(0.4f)
                         .height(40.dp)
+                        .width(80.dp)
                 ) {
-                    Text(text = stringResource(R.string.buy))
+                    Text(text = "Add")
+                }
+                Button(
+                    onClick = onSubtract,
+                    modifier = Modifier
+                        .height(40.dp)
+                        .width(80.dp)
+                ) {
+                    Text(text = "Subtract")
                 }
                 Button(
                     onClick = onSaveClick,
                     modifier = Modifier
-                        .fillMaxWidth(0.5f)
+                        .fillMaxWidth(1f)
                         .height(40.dp)
                 ) {
                     Text(text = stringResource(R.string.save))
@@ -104,6 +114,7 @@ fun PreviewShoppingCard() {
             description = "Description for Item ",
             image = ""
         ),
-        onBuyClick = { }) {
-    }
+        onAddClick = { },
+        onSubtract = { },
+        onSaveClick = { })
 }

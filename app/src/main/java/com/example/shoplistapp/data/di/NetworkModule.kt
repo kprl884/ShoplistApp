@@ -1,6 +1,8 @@
 package com.example.shoplistapp.data.di
 
 import android.content.Context
+import androidx.room.Room
+import com.example.shoplistapp.data.local.db.ShoppingDao
 import com.example.shoplistapp.data.local.db.ShoppingDatabase
 import com.example.shoplistapp.data.network.service.repository.ProductService
 import com.example.shoplistapp.data.utils.Constant.BASE_URL
@@ -23,12 +25,31 @@ object NetworkModule {
     ): ProductService {
         return retrofit.create(ProductService::class.java)
     }
-
+/*
 
     @Provides
     @Singleton
     fun provideShoppingDatabase(@ApplicationContext context: Context): ShoppingDatabase {
         return ShoppingDatabase(context)
+    }
+
+ */
+
+    @Provides
+    @Singleton
+    fun provideShoppingDatabase(@ApplicationContext context: Context): ShoppingDatabase {
+        return Room.databaseBuilder(
+            context,
+            ShoppingDatabase::class.java,
+            "ShoppingDB.db"
+        )
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+
+    @Provides
+    fun provideShoppingDao(database: ShoppingDatabase): ShoppingDao {
+        return database.getShoppingDao()
     }
     @Provides
     @Singleton

@@ -15,8 +15,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.shoplistapp.presentation.product.HomeScreen
 import com.example.shoplistapp.presentation.product.HomeScreenViewModel
-import com.example.shoplistapp.presentation.shoppingitem.ShoppingItemScreen
-import com.example.shoplistapp.presentation.shoppingitem.ShoppingScreenViewModel
+import com.example.shoplistapp.presentation.basket.BasketScreen
+import com.example.shoplistapp.presentation.basket.BasketScreenViewModel
 import com.example.shoplistapp.ui.theme.ShoplistAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,20 +35,23 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    val shoppingScreenViewModel: ShoppingScreenViewModel by viewModels()
+                    val basketScreenViewModel: BasketScreenViewModel by viewModels()
                     val productScreenViewModel: HomeScreenViewModel by viewModels()
-                    NavHost(navController = navController, startDestination = "product") {
-                        composable("shopping") {
-                            ShoppingItemScreen(
-                                shoppingScreenViewModel.uiState,
+                    NavHost(navController = navController, startDestination = "home") {
+                        composable("basket") {
+                            BasketScreen(
+                                basketScreenViewModel.uiState,
                                 onEvent = {
-                                    shoppingScreenViewModel.onEvent(it)
+                                    basketScreenViewModel.uiEvent
                                 }
                             )
                         }
-                        composable("product") {
+                        composable("home") {
                             HomeScreen(
-                                productScreenViewModel.uiState
+                                productScreenViewModel.uiState,
+                                onEvent = {
+                                    productScreenViewModel.uiEvent
+                                },
                             )
                         }
                     }

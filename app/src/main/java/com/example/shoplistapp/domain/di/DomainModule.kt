@@ -6,9 +6,9 @@ import com.example.shoplistapp.data.network.service.datasource.ProductListDataSo
 import com.example.shoplistapp.data.network.service.repository.ProductService
 import com.example.shoplistapp.domain.repository.local.ShoppingLocalRepository
 import com.example.shoplistapp.domain.repository.remote.ProductRemoteRepository
-import com.example.shoplistapp.domain.usecase.local.ShoppingListDeleteUseCaseLocal
-import com.example.shoplistapp.domain.usecase.local.ShoppingListGetLocalUseCase
-import com.example.shoplistapp.domain.usecase.local.ShoppingListInsertUseCaseLocal
+import com.example.shoplistapp.domain.usecase.local.BasketListDeleteUseCaseLocal
+import com.example.shoplistapp.domain.usecase.local.BasketListGetLocalUseCase
+import com.example.shoplistapp.domain.usecase.local.BasketListInsertUseCaseLocal
 import com.example.shoplistapp.domain.usecase.remote.ProductListGetUseCaseRemote
 import dagger.Module
 import dagger.Provides
@@ -24,8 +24,8 @@ object DomainModule {
     @Provides
     fun provideGetShoppingListLocalUseCase(
         shoppingLocalRepository: ShoppingLocalRepository
-    ): ShoppingListGetLocalUseCase {
-        return ShoppingListGetLocalUseCase(
+    ): BasketListGetLocalUseCase {
+        return BasketListGetLocalUseCase(
             shoppingLocalRepository
         )
     }
@@ -58,8 +58,8 @@ object DomainModule {
     @Provides
     fun provideDeleteShoppingItemLocalUseCase(
         shoppingLocalRepository: ShoppingLocalRepository
-    ): ShoppingListDeleteUseCaseLocal {
-        return ShoppingListDeleteUseCaseLocal(
+    ): BasketListDeleteUseCaseLocal {
+        return BasketListDeleteUseCaseLocal(
             shoppingLocalRepository
         )
     }
@@ -68,8 +68,8 @@ object DomainModule {
     @Provides
     fun provideInsertShoppingItemLocalUseCase(
         shoppingLocalRepository: ShoppingLocalRepository
-    ): ShoppingListInsertUseCaseLocal {
-        return ShoppingListInsertUseCaseLocal(
+    ): BasketListInsertUseCaseLocal {
+        return BasketListInsertUseCaseLocal(
             shoppingLocalRepository
         )
     }

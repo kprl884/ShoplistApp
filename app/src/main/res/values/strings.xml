@@ -2,4 +2,5 @@
     <string name="app_name">ShoplistApp</string>
     <string name="save">Save</string>
     <string name="buy">Buy</string>
+    <string name="basket">Basket</string>
 </resources>
