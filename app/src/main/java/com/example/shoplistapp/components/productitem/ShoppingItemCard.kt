@@ -30,6 +30,7 @@ import com.example.shoplistapp.domain.entity.ProductItem
 @Composable
 fun ShoppingItemCard(
     shoppingItem: ProductItem,
+    basketListSize: Int,
     onAddClick: () -> Unit,
     onSubtract: () -> Unit,
     onSaveClick: () -> Unit
@@ -49,7 +50,7 @@ fun ShoppingItemCard(
                 modifier = Modifier
                     .clip(shape = MaterialTheme.shapes.medium)
                     .size(120.dp)
-                    .align(Alignment.CenterHorizontally)
+                    .align(Alignment.CenterHorizontally),
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
@@ -95,7 +96,7 @@ fun ShoppingItemCard(
                         .fillMaxWidth(1f)
                         .height(40.dp)
                 ) {
-                    Text(text = stringResource(R.string.save))
+                    Text(text = stringResource(R.string.save) + "$basketListSize")
                 }
             }
         }
@@ -114,6 +115,7 @@ fun PreviewShoppingCard() {
             description = "Description for Item ",
             image = ""
         ),
+        basketListSize= 3,
         onAddClick = { },
         onSubtract = { },
         onSaveClick = { })

@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ShoplistAppTheme(
-                darkTheme = true
+                darkTheme = false
             ) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
                             BasketScreen(
                                 basketScreenViewModel.uiState,
                                 onEvent = {
-                                    basketScreenViewModel.uiEvent
+                                    basketScreenViewModel.onEvent(it)
                                 }
                             )
                         }
@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
                             HomeScreen(
                                 productScreenViewModel.uiState,
                                 onEvent = {
-                                    productScreenViewModel.uiEvent
+                                    productScreenViewModel.onEvent(it)
                                 },
                             )
                         }

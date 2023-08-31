@@ -27,8 +27,6 @@ class HomeScreenViewModel @Inject constructor(
     private val _uiEvent = Channel<HomeScreenUiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
-    private var basketlist = arrayListOf<ProductItem>()
-
     init {
         getProduct()
     }
@@ -52,21 +50,23 @@ class HomeScreenViewModel @Inject constructor(
     }
 
     private fun addProductItem(item: ProductItem) {
-        basketlist = _uiState.value.basketList as ArrayList<ProductItem>
-        basketlist.add(item)
+        val basketList: ArrayList<ProductItem> = arrayListOf()
+        _uiState.value.basketList?.let { basketList.addAll(it) }
+        basketList.add(item)
         _uiState.update { currentState ->
             currentState.copy(
-                basketList = basketlist
+                basketList = basketList
             )
         }
     }
 
     private fun subtractProductItem(item: ProductItem) {
-        basketlist = _uiState.value.basketList as ArrayList<ProductItem>
-        basketlist.remove(item)
+        val basketList: ArrayList<ProductItem> = arrayListOf()
+        _uiState.value.basketList?.let { basketList.addAll(it) }
+        basketList.remove(item)
         _uiState.update { currentState ->
             currentState.copy(
-                basketList = basketlist
+                basketList = basketList
             )
         }
     }
