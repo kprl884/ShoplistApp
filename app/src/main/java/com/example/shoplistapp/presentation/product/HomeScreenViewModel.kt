@@ -7,11 +7,9 @@ import com.example.shoplistapp.domain.usecase.local.BasketListInsertUseCaseLocal
 import com.example.shoplistapp.domain.usecase.remote.ProductListGetUseCaseRemote
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,9 +22,6 @@ class HomeScreenViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(HomeScreenUiState())
     val uiState: StateFlow<HomeScreenUiState> = _uiState.asStateFlow()
 
-    private val _uiEvent = Channel<HomeScreenUiEvent>()
-    val uiEvent = _uiEvent.receiveAsFlow()
-
     init {
         getProduct()
     }
@@ -36,16 +31,17 @@ class HomeScreenViewModel @Inject constructor(
             is HomeScreenUiEvent.OnAddItem -> {
                 addProductItem(uiEvent.item)
             }
-
             is HomeScreenUiEvent.OnSubtractItem -> {
                 subtractProductItem(uiEvent.item)
             }
-
             is HomeScreenUiEvent.OnSaveItem -> {
                 saveProductItem(uiEvent.item)
             }
-
-            else -> {}
+            is HomeScreenUiEvent.OnNavigate -> {
+            }
+            else -> {
+                println("else")
+            }
         }
     }
 
@@ -73,9 +69,7 @@ class HomeScreenViewModel @Inject constructor(
 
     private fun saveProductItem(item: ProductItem) {
         viewModelScope.launch {
-            basketListInsertUseCaseLocal.invoke(item) {
-
-            }
+            basketListInsertUseCaseLocal.invoke(item) {}
         }
     }
 

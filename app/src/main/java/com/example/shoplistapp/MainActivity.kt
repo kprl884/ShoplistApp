@@ -37,6 +37,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     val basketScreenViewModel: BasketScreenViewModel by viewModels()
                     val productScreenViewModel: HomeScreenViewModel by viewModels()
+
                     NavHost(navController = navController, startDestination = "home") {
                         composable("basket") {
                             BasketScreen(
@@ -52,6 +53,7 @@ class MainActivity : ComponentActivity() {
                                 onEvent = {
                                     productScreenViewModel.onEvent(it)
                                 },
+                                navigate = { navController.navigate("basket") }
                             )
                         }
                     }

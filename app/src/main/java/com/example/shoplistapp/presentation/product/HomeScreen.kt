@@ -35,8 +35,10 @@ import kotlinx.coroutines.flow.StateFlow
 fun HomeScreen(
     uiStateFlow: StateFlow<HomeScreenUiState>,
     onEvent: (HomeScreenUiEvent) -> Unit,
+    navigate: () -> Unit
 ) {
     val uiState by uiStateFlow.collectAsState()
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -51,7 +53,7 @@ fun HomeScreen(
         },
         floatingActionButton = {
             ExtendedFloatingActionButton(
-                onClick = { /*TODO*/ },
+                onClick = { navigate.invoke() },
                 containerColor = MaterialTheme.colorScheme.primary,
                 content = {
                     Icon(
@@ -100,6 +102,7 @@ fun PreviewProductScreen() {
                 )
             )
         ),
-        onEvent = { }
+        onEvent = { },
+        navigate = {}
     )
 }
