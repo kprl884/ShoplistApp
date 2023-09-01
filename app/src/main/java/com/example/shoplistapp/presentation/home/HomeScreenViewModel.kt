@@ -1,8 +1,9 @@
-package com.example.shoplistapp.presentation.product
+package com.example.shoplistapp.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.shoplistapp.domain.entity.ProductItem
+import com.example.shoplistapp.domain.usecase.local.BasketListGetLocalUseCase
 import com.example.shoplistapp.domain.usecase.local.BasketListInsertUseCaseLocal
 import com.example.shoplistapp.domain.usecase.remote.ProductListGetUseCaseRemote
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeScreenViewModel @Inject constructor(
     private val productListGetUseCaseRemote: ProductListGetUseCaseRemote,
-    private val basketListInsertUseCaseLocal: BasketListInsertUseCaseLocal
+    private val basketListInsertUseCaseLocal: BasketListInsertUseCaseLocal,
+    private val basketListGetLocalUseCase: BasketListGetLocalUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(HomeScreenUiState())
     val uiState: StateFlow<HomeScreenUiState> = _uiState.asStateFlow()
@@ -28,20 +30,11 @@ class HomeScreenViewModel @Inject constructor(
 
     fun onEvent(uiEvent: HomeScreenUiEvent) {
         when (uiEvent) {
-            is HomeScreenUiEvent.OnAddItem -> {
-                addProductItem(uiEvent.item)
-            }
-            is HomeScreenUiEvent.OnSubtractItem -> {
-                subtractProductItem(uiEvent.item)
-            }
             is HomeScreenUiEvent.OnSaveItem -> {
                 saveProductItem(uiEvent.item)
             }
-            is HomeScreenUiEvent.OnNavigate -> {
-            }
-            else -> {
-                println("else")
-            }
+
+            else -> {}
         }
     }
 
@@ -71,12 +64,8 @@ class HomeScreenViewModel @Inject constructor(
         viewModelScope.launch {
             basketListInsertUseCaseLocal.invoke(item) {}
         }
+        getUpdateBasketList()
     }
-
-    private fun navigate(route: String) {
-
-    }
-
 
     private fun getProduct() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -84,6 +73,18 @@ class HomeScreenViewModel @Inject constructor(
                 _uiState.update { currentState ->
                     currentState.copy(
                         productList = dataList
+                    )
+                }
+            }
+        }
+    }
+
+    private fun getUpdateBasketList() {
+        viewModelScope.launch(Dispatchers.IO) {
+            basketListGetLocalUseCase.invoke { dataList ->
+                _uiState.update { currentState ->
+                    currentState.copy(
+                        basketList = dataList
                     )
                 }
             }

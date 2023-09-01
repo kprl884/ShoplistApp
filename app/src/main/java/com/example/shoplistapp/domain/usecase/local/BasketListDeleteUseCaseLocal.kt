@@ -7,6 +7,7 @@ class BasketListDeleteUseCaseLocal(private val shoppingLocalRepository: Shopping
     suspend operator fun invoke(
         item: ProductItem
     ) {
+        println("data domain BasketListDeleteUseCaseLocal ${item.title}} ")
         return shoppingLocalRepository.delete(item)
     }
 }

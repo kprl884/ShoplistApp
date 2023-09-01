@@ -13,6 +13,7 @@ class BasketListGetLocalUseCase(private val shoppingLocalRepository: ShoppingLoc
                println(it.localizedMessage)
             }
             .collect{
+                println("data domain BasketListGetLocalUseCase ${it.size} ")
                 onResult(it)
             }
     }

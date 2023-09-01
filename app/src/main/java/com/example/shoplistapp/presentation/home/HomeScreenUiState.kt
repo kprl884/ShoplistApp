@@ -1,4 +1,4 @@
-package com.example.shoplistapp.presentation.product
+package com.example.shoplistapp.presentation.home
 
 import com.example.shoplistapp.domain.entity.ProductItem
 

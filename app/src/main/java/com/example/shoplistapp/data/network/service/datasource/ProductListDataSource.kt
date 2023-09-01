@@ -12,6 +12,8 @@ class ProductListDataSource(private val productService: ProductService) : Produc
     override suspend fun getProducts(): Flow<List<ProductItem>> {
         return flow {
             try {
+                println("dp shop  getProducts = ${productService.getProducts()}")
+
                 val response = productService.getProducts()
                 emit(response)
             }catch (e: Exception){

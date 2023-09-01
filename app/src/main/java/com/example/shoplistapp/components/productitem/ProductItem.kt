@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -18,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
@@ -66,15 +65,7 @@ fun ProductItem(productItem: ProductItem) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Button(
-                    onClick = {//onSubtract}
-                    },
-                    modifier = Modifier
-                        .height(40.dp)
-                        .width(80.dp)
-                ) {
-                    Text(text = "Subtract")
-                }
+                Text(text = "Count = ${productItem.count}", textAlign = TextAlign.Center)
             }
         }
     }
@@ -86,7 +77,7 @@ fun PreviewProductItem() {
     ProductItem(
         ProductItem(
             3, "Şapka", 500f, "Şapka", "Şapka",
-            ""
+            "", 0
         )
     )
 }

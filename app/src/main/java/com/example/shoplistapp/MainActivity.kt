@@ -13,8 +13,8 @@ import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.shoplistapp.presentation.product.HomeScreen
-import com.example.shoplistapp.presentation.product.HomeScreenViewModel
+import com.example.shoplistapp.presentation.home.HomeScreen
+import com.example.shoplistapp.presentation.home.HomeScreenViewModel
 import com.example.shoplistapp.presentation.basket.BasketScreen
 import com.example.shoplistapp.presentation.basket.BasketScreenViewModel
 import com.example.shoplistapp.ui.theme.ShoplistAppTheme
@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val navController = rememberNavController()
                     val basketScreenViewModel: BasketScreenViewModel by viewModels()
-                    val productScreenViewModel: HomeScreenViewModel by viewModels()
+                    val homeScreenViewModel: HomeScreenViewModel by viewModels()
 
                     NavHost(navController = navController, startDestination = "home") {
                         composable("basket") {
@@ -49,9 +49,9 @@ class MainActivity : ComponentActivity() {
                         }
                         composable("home") {
                             HomeScreen(
-                                productScreenViewModel.uiState,
+                                homeScreenViewModel.uiState,
                                 onEvent = {
-                                    productScreenViewModel.onEvent(it)
+                                    homeScreenViewModel.onEvent(it)
                                 },
                                 navigate = { navController.navigate("basket") }
                             )

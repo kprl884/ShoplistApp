@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.shoplistapp.components.productitem.ProductItem
 import com.example.shoplistapp.ui.theme.ShoplistAppTheme
@@ -15,9 +17,11 @@ fun BasketScreen(
     uiStateFlow: StateFlow<BasketScreenUiState>,
     onEvent: (BasketUiEvent) -> Unit
 ) {
+    val uiState by uiStateFlow.collectAsState()
+
     Column {
         LazyColumn {
-            items(uiStateFlow.value.basketList) {
+            items(uiState.basketList) {
                 if (it != null) {
                     ProductItem(it)
                 }

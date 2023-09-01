@@ -25,15 +25,6 @@ object NetworkModule {
     ): ProductService {
         return retrofit.create(ProductService::class.java)
     }
-/*
-
-    @Provides
-    @Singleton
-    fun provideShoppingDatabase(@ApplicationContext context: Context): ShoppingDatabase {
-        return ShoppingDatabase(context)
-    }
-
- */
 
     @Provides
     @Singleton

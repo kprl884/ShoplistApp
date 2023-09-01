@@ -34,21 +34,25 @@ class BasketScreenViewModel @Inject constructor(
         getList()
     }
 
-    fun onEvent(uiEvent: BasketUiEvent){
-        when(uiEvent){
+    fun onEvent(uiEvent: BasketUiEvent) {
+        when (uiEvent) {
             is BasketUiEvent.OnDeleteItem -> {
                 delete(uiEvent.item)
             }
+
             is BasketUiEvent.OnInsertItem -> {
                 insert(uiEvent.item)
             }
+
+            else -> {}
         }
     }
 
     private fun insert(item: ProductItem) = CoroutineScope(Dispatchers.Main).launch {
         basketListInsertUseCaseLocal.invoke(item) {
-            _uiState.update { currentState->
+            _uiState.update { currentState ->
                 currentState.copy(
+
                 )
             }
         }
@@ -58,15 +62,10 @@ class BasketScreenViewModel @Inject constructor(
         deleteUseCaseLocal.invoke(item)
     }
 
-    private fun getList(){
-        _uiState.update { currentState->
-            currentState.copy(
-                isListLoading = true
-            )
-        }
+    private fun getList() {
         viewModelScope.launch(Dispatchers.IO) {
             basketListGetLocalUseCase.invoke { dataList ->
-                _uiState.update { currentState->
+                _uiState.update { currentState ->
                     currentState.copy(
                         isListLoading = false,
                         basketList = dataList

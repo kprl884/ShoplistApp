@@ -14,6 +14,10 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,16 +29,17 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.shoplistapp.R
 import com.example.shoplistapp.domain.entity.ProductItem
+import com.example.shoplistapp.presentation.home.HomeScreenUiState
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun ShoppingItemCard(
     shoppingItem: ProductItem,
-    basketListSize: Int,
-    onAddClick: () -> Unit,
-    onSubtract: () -> Unit,
-    onSaveClick: () -> Unit
+    uiState: HomeScreenUiState,
+    onSaveClick: (shoppingItem: ProductItem) -> Unit
 ) {
+    var count by remember { mutableIntStateOf(0) }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -50,7 +55,7 @@ fun ShoppingItemCard(
                 modifier = Modifier
                     .clip(shape = MaterialTheme.shapes.medium)
                     .size(120.dp)
-                    .align(Alignment.CenterHorizontally),
+                    .align(Alignment.CenterHorizontally)
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
@@ -75,7 +80,10 @@ fun ShoppingItemCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Button(
-                    onClick = onAddClick,
+                    onClick = {
+                        count += 1
+                        shoppingItem.count++
+                    },
                     modifier = Modifier
                         .height(40.dp)
                         .width(80.dp)
@@ -83,7 +91,9 @@ fun ShoppingItemCard(
                     Text(text = "Add")
                 }
                 Button(
-                    onClick = onSubtract,
+                    onClick = {
+                        if (count >= 1) count -= 1
+                    },
                     modifier = Modifier
                         .height(40.dp)
                         .width(80.dp)
@@ -91,12 +101,15 @@ fun ShoppingItemCard(
                     Text(text = "Subtract")
                 }
                 Button(
-                    onClick = onSaveClick,
+                    onClick = {
+                        onSaveClick(shoppingItem)
+                        count = 0
+                    },
                     modifier = Modifier
                         .fillMaxWidth(1f)
                         .height(40.dp)
                 ) {
-                    Text(text = stringResource(R.string.save) + "$basketListSize")
+                    Text(text = stringResource(R.string.save) + " $count")
                 }
             }
         }
@@ -113,10 +126,14 @@ fun PreviewShoppingCard() {
             price = 200f,
             category = "Category",
             description = "Description for Item ",
-            image = ""
+            image = "",
+            1
         ),
-        basketListSize= 3,
-        onAddClick = { },
-        onSubtract = { },
-        onSaveClick = { })
+        HomeScreenUiState(
+            isProductListLoading = false,
+            listOf(),
+            listOf()
+        ),
+        onSaveClick = { }
+    )
 }

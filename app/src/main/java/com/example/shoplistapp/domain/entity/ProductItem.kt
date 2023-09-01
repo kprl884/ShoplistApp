@@ -17,5 +17,7 @@ data class ProductItem(
     @ColumnInfo("item_description")
     val description: String,
     @ColumnInfo("item_image")
-    val image: String
+    val image: String,
+    @ColumnInfo("item_count")
+    var count: Int
 )

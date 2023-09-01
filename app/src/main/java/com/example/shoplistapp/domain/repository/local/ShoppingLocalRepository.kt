@@ -5,8 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface ShoppingLocalRepository {
     suspend fun upsert(item: ProductItem)
-
     suspend fun delete(item: ProductItem)
-
     suspend fun getAllShoppingItems() : Flow<List<ProductItem>>
 }

@@ -6,7 +6,7 @@ import com.example.shoplistapp.domain.entity.ProductItem
 
 @Database(
     entities = [ProductItem::class],
-    version = 1
+    version = 2
 )
 abstract class ShoppingDatabase : RoomDatabase() {
     abstract fun getShoppingDao(): ShoppingDao

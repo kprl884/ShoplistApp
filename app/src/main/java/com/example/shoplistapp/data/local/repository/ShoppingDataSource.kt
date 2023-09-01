@@ -12,10 +12,10 @@ class ShoppingDataSource(private val db: ShoppingDatabase) :
     ShoppingLocalRepository {
     override suspend fun upsert(item: ProductItem) = db.getShoppingDao().insert(item)
     override suspend fun delete(item: ProductItem) = db.getShoppingDao().delete(item)
-
     override suspend fun getAllShoppingItems(): Flow<List<ProductItem>> {
         return flow {
             try {
+                println("data getShoppingDao =getAllItems =  ${db.getShoppingDao().getAllItems()}")
                 emit(db.getShoppingDao().getAllItems())
             } catch (e: Exception) {
                 println("$e")

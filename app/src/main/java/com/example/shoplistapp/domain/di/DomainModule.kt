@@ -19,17 +19,6 @@ import dagger.hilt.android.scopes.ViewModelScoped
 @Module
 @InstallIn(ViewModelComponent::class)
 object DomainModule {
-
-    @ViewModelScoped
-    @Provides
-    fun provideGetShoppingListLocalUseCase(
-        shoppingLocalRepository: ShoppingLocalRepository
-    ): BasketListGetLocalUseCase {
-        return BasketListGetLocalUseCase(
-            shoppingLocalRepository
-        )
-    }
-
     @ViewModelScoped
     @Provides
     fun provideShoppingLocalRepository(
@@ -70,6 +59,15 @@ object DomainModule {
         shoppingLocalRepository: ShoppingLocalRepository
     ): BasketListInsertUseCaseLocal {
         return BasketListInsertUseCaseLocal(
+            shoppingLocalRepository
+        )
+    }
+    @ViewModelScoped
+    @Provides
+    fun provideGetShoppingListLocalUseCase(
+        shoppingLocalRepository: ShoppingLocalRepository
+    ): BasketListGetLocalUseCase {
+        return BasketListGetLocalUseCase(
             shoppingLocalRepository
         )
     }

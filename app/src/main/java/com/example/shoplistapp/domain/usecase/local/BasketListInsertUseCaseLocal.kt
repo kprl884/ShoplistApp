@@ -8,6 +8,7 @@ class BasketListInsertUseCaseLocal(private val shoppingLocalRepository: Shopping
         item: ProductItem,
         onResult : suspend  () -> Unit
     ){
+        println("data domain shoppingLocalRepository ${item.title}} ")
         return shoppingLocalRepository.upsert(item = item)
     }
 }

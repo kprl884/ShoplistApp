@@ -11,6 +11,7 @@ class ProductListGetUseCaseRemote(private val productRemoteRepository: ProductRe
                 println(it.localizedMessage)
             }
             .collect {
+                println("data - domain ${it.size}")
                 onResult(
                     it
                 )
