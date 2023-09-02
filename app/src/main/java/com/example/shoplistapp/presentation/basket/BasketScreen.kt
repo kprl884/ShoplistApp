@@ -14,16 +14,15 @@ import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun BasketScreen(
-    uiStateFlow: StateFlow<BasketScreenUiState>,
-    onEvent: (BasketUiEvent) -> Unit
+    uiStateFlow: StateFlow<BasketScreenUiState>
 ) {
     val uiState by uiStateFlow.collectAsState()
 
     Column {
         LazyColumn {
-            items(uiState.basketList) {
-                if (it != null) {
-                    ProductItem(it)
+            uiState.basketList?.let {dataList->
+                items(dataList) { productItem ->
+                    ProductItem(productItem)
                 }
             }
         }
@@ -37,8 +36,7 @@ fun PreviewShoppingItemScreen() {
         BasketScreen(
             uiStateFlow = MutableStateFlow(
                 BasketScreenUiState()
-            ),
-            onEvent = {}
+            )
         )
     }
 }

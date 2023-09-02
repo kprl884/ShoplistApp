@@ -41,10 +41,7 @@ class MainActivity : ComponentActivity() {
                     NavHost(navController = navController, startDestination = "home") {
                         composable("basket") {
                             BasketScreen(
-                                basketScreenViewModel.uiState,
-                                onEvent = {
-                                    basketScreenViewModel.onEvent(it)
-                                }
+                                basketScreenViewModel.uiState
                             )
                         }
                         composable("home") {

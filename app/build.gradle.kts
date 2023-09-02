@@ -2,7 +2,8 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
-    id("com.google.devtools.ksp")
+    id("org.jetbrains.kotlin.kapt")
+    id("kotlin-kapt")
 }
 
 android {
@@ -19,6 +20,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        multiDexEnabled = true
+
     }
 
     buildTypes {
@@ -74,10 +77,11 @@ dependencies {
     implementation ("androidx.room:room-runtime:$room_version")
     annotationProcessor ("androidx.room:room-compiler:$room_version")
     implementation ("androidx.room:room-ktx:$room_version")
-    ksp ("androidx.room:room-compiler:$room_version")
+    kapt ("androidx.room:room-compiler:$room_version")
     //hilt
     implementation ("com.google.dagger:hilt-android:2.46.1")
-    ksp ("com.google.dagger:hilt-compiler:2.46.1")
+    kapt ("com.google.dagger:hilt-compiler:2.46.1")
+
     //retrofit gson
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.google.code.gson:gson:2.10.1")
@@ -85,6 +89,7 @@ dependencies {
     //navigation
     implementation ("androidx.navigation:navigation-compose:$nav_version")
     //glide
-    implementation ("com.github.bumptech.glide:glide:4.15.1")
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
     implementation ("com.github.bumptech.glide:compose:1.0.0-alpha.5")
+    implementation ("com.android.support:multidex:1.0.3")
 }
