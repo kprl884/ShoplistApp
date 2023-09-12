@@ -2,9 +2,7 @@ package com.example.shoplistapp.presentation.basket
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.shoplistapp.domain.usecase.local.BasketListDeleteUseCaseLocal
 import com.example.shoplistapp.domain.usecase.local.BasketListGetLocalUseCase
-import com.example.shoplistapp.domain.usecase.local.BasketListInsertUseCaseLocal
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,7 +23,7 @@ class BasketScreenViewModel @Inject constructor(
         getList()
     }
 
-    private fun getList() {
+    fun getList() {
         viewModelScope.launch(Dispatchers.IO) {
             basketListGetLocalUseCase.invoke { dataList ->
                 _uiState.update { currentState ->
